@@ -1,0 +1,164 @@
+							REQUESTS
+
+1) Create request: 
+
+	METHOD: POST
+	URL: /requests
+	BODY PARAMETERS:
+		
+		typeRequest = (steal, drivingAway, suspicion ...)
+		radius = 100
+		longitude = 24.2434
+		latitude = 56.3556
+
+RESPONSE:
+	
+	(Success)
+	{
+		"meta": {
+        	"code": 200
+    	},
+    	"data":{
+    		"id":"4557868"
+    	}
+	}
+
+	(Error)
+	{
+		"meta": {
+        	"code": 400,
+        	"message":"Bad Request."
+    	}
+	}
+
+
+	(Error)
+	{
+		"meta": {
+        	"code": 400,
+        	"message":"Bad Request."
+    	}
+	}
+
+2) Retrive all requests:
+
+	METHOD: GET
+	URL: /requests?limit=25&offset=50
+	(Default: limit=10&offset=0)
+
+RESPONSE:
+
+	(Success)
+	{
+		"meta": {
+        	"code": 200
+    	},
+    	"data": [
+    		{
+				"id":"4557868",
+				"created_time":"1296748524",
+				"typeRequest":"steal",
+				"location": {
+            		"id": "514276",
+					"radius":100,
+            		"latitude": 37.780885099999999,
+            		"longitude": -122.3948632
+        		}
+        	},
+        	{
+				"id":"4557867",
+				"created_time":"1296748578",
+				"typeRequest":"steal",
+				"location": {
+            		"id": "514274",
+					"radius":45,
+            		"latitude": 38.780885099999999,
+            		"longitude": -22.3948632
+        		} 
+        }],
+        "pagination": {
+        	"resultset": {
+            	"count": 227,
+            	"offset": 25,
+            	"limit": 25
+        	}
+        }
+	}	
+
+
+3) Retrive request by ID:
+	
+	METHOD: GET
+	URL: /requests/4557868
+
+RESPONSE:
+	
+	(Success)
+	{
+		"meta": {
+        	"code": 200
+    	},
+    	"data": {
+			"status":"200",
+			"id":"4557868",
+			"created_time":"1296748524",
+			"typeRequest":"steal",
+			"location": {
+            	"id": "514276",
+				"radius":100,
+            	"latitude": 37.780885099999999,
+            	"longitude": -122.3948632
+        	}
+    	}
+	}
+
+	(Error, Example: /requests/45f57868)
+	{
+		"meta": {
+        	"code": 400,
+        	"message":"Bad Request."
+    	}
+	}
+
+4) Remove request by id:
+
+	METHOD: DELETE
+	URL: /request/4557868
+
+RESPONSE:
+	
+	(Success)
+	{
+		"meta": {
+        	"code": 200
+    	},
+    	"data":{
+    		"id":"4557868"
+    	}
+	}
+
+	(Error, Example: /requests/)
+	{
+		"meta": {
+        	"code": 400,
+        	"message":"Bad Request."
+    	}
+	}
+
+						DEVICE
+
+1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
