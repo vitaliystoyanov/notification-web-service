@@ -1,22 +1,27 @@
 package com.app.mvc.dao.util;
 
+import com.app.mvc.dao.annotation.Column;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
-
-import com.app.mvc.dao.annotation.Column;
+import java.util.ArrayList;
 
 public abstract class ResultSetParser {
 
-    public static <T> T parseResultSet(ResultSet rs, Class<?> entity) {
+    private static final Logger logger = LogManager.getLogger(ResultSetParser.class);
+
+    public static <T> T parseResultSetToInstance(ResultSet resultSet, Class<?> entity) {
 
         try {
             @SuppressWarnings("unchecked")
             T instance = (T) entity.newInstance();
             Field[] fields = entity.getDeclaredFields();
 
-            while (rs.next()) {
+            while (resultSet.next()) {
                 for (Field field : fields) {
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field.getName(), entity);
                     Method write = propertyDescriptor.getWriteMethod();
@@ -24,8 +29,9 @@ public abstract class ResultSetParser {
                     if (field.isAnnotationPresent(Column.class)) {
                         Class typeField = field.getAnnotation(Column.class).type();
                         try {
-                            write.invoke(instance, rs.getObject(field.getAnnotation(Column.class).name(), typeField));
+                            write.invoke(instance, resultSet.getObject(field.getAnnotation(Column.class).name(), typeField));
                         } catch (Exception e) {
+                            logger.error(e);
                             e.printStackTrace();
                         }
                     }
@@ -33,9 +39,42 @@ public abstract class ResultSetParser {
             }
             return instance;
         } catch (Exception e) {
+            logger.error(e);
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static <T> ArrayList<T> parseResultSetToArray(ResultSet resultSet, Class<?> entity) {
+        ArrayList<T> list = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                @SuppressWarnings("unchecked")
+                T instance = (T) entity.newInstance();
+                Field[] fields = entity.getDeclaredFields();
+
+                for (Field field : fields) {
+                    PropertyDescriptor propertyDescriptor = new PropertyDescriptor(field.getName(), entity);
+                    Method write = propertyDescriptor.getWriteMethod();
+
+                    if (field.isAnnotationPresent(Column.class)) {
+                        Class typeField = field.getAnnotation(Column.class).type();
+                        try {
+                            write.invoke(instance, resultSet.getObject(field.getAnnotation(Column.class).name(), typeField));
+                        } catch (Exception e) {
+                            logger.error(e);
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                list.add(instance);
+            }
+            return list;
+        } catch (Exception e) {
+            logger.error(e);
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }

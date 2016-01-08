@@ -19,7 +19,7 @@ RESPONSE:
         	"code": 200
     	},
     	"data":{
-    		"id":"4557868"
+    		"idRequest":"4557868"
     	}
 	}
 
@@ -55,22 +55,22 @@ RESPONSE:
     	},
     	"data": [
     		{
-				"id":"4557868",
+				"idRequest":"4557868",
 				"created_time":"1296748524",
 				"typeRequest":"steal",
 				"location": {
-            		"id": "514276",
+            		"idRequest": "514276",
 					"radius":100,
             		"latitude": 37.780885099999999,
             		"longitude": -122.3948632
         		}
         	},
         	{
-				"id":"4557867",
+				"idRequest":"4557867",
 				"created_time":"1296748578",
 				"typeRequest":"steal",
 				"location": {
-            		"id": "514274",
+            		"idRequest": "514274",
 					"radius":45,
             		"latitude": 38.780885099999999,
             		"longitude": -22.3948632
@@ -100,11 +100,11 @@ RESPONSE:
     	},
     	"data": {
 			"status":"200",
-			"id":"4557868",
+			"idRequest":"4557868",
 			"created_time":"1296748524",
 			"typeRequest":"steal",
 			"location": {
-            	"id": "514276",
+            	"idRequest": "514276",
 				"radius":100,
             	"latitude": 37.780885099999999,
             	"longitude": -122.3948632
@@ -120,7 +120,7 @@ RESPONSE:
     	}
 	}
 
-4) Remove request by id:
+4) Remove request by idRequest:
 
 	METHOD: DELETE
 	URL: /request/4557868
@@ -133,7 +133,7 @@ RESPONSE:
         	"code": 200
     	},
     	"data":{
-    		"id":"4557868"
+    		"idRequest":"4557868"
     	}
 	}
 

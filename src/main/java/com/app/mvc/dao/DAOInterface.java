@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface DAOInterface extends CRUDInterface {
 
-    public <T> List<T> retrieveAll(Class<?> T);
+    <T> List<T> retrieveAll(Class<?> T);
+
+    <T> List<T> retrieveAllWithWhere(Class<?> T, String[] argsWhere, String[] valueWhere);
 
 }

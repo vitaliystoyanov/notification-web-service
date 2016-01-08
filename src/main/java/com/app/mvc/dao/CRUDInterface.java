@@ -2,7 +2,7 @@ package com.app.mvc.dao;
 
 public interface CRUDInterface {
 
-    public <T> void create(T instance);
+    public <T> int create(T instance);
 
     public <T> T retrieve(Class<?> entity, int id);
 
