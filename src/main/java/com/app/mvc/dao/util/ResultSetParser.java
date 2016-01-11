@@ -31,16 +31,14 @@ public abstract class ResultSetParser {
                         try {
                             write.invoke(instance, resultSet.getObject(field.getAnnotation(Column.class).name(), typeField));
                         } catch (Exception e) {
-                            logger.error(e);
-                            e.printStackTrace();
+                            logger.error("", e);
                         }
                     }
                 }
             }
             return instance;
         } catch (Exception e) {
-            logger.error(e);
-            e.printStackTrace();
+            logger.error("", e);
         }
         return null;
     }
@@ -62,8 +60,7 @@ public abstract class ResultSetParser {
                         try {
                             write.invoke(instance, resultSet.getObject(field.getAnnotation(Column.class).name(), typeField));
                         } catch (Exception e) {
-                            logger.error(e);
-                            e.printStackTrace();
+                            logger.error("", e);
                         }
                     }
                 }
@@ -71,8 +68,7 @@ public abstract class ResultSetParser {
             }
             return list;
         } catch (Exception e) {
-            logger.error(e);
-            e.printStackTrace();
+            logger.error("", e);
         }
         return list;
     }

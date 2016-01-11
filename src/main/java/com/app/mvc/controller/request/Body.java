@@ -1,14 +1,25 @@
-package com.app.mvc.controller.response;
+package com.app.mvc.controller.request;
 
 import com.app.mvc.entity.LevelDanger;
 import com.app.mvc.entity.Location;
 import com.app.mvc.entity.TypeRequest;
 
-public class CommonRequest {
+public class Body {
 
+    private int id;
     private Location location;
     private TypeRequest typeRequest;
     private LevelDanger levelDanger;
+
+    public Body() {
+    }
+
+    public Body(int id, Location location, LevelDanger levelDanger, TypeRequest typeRequest) {
+        this.id = id;
+        this.location = location;
+        this.levelDanger = levelDanger;
+        this.typeRequest = typeRequest;
+    }
 
     public Location getLocation() {
         return location;

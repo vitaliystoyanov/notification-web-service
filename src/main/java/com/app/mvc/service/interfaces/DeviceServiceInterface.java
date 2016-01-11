@@ -11,6 +11,6 @@ public interface DeviceServiceInterface {
 
     Device getDeviceBySystemID(String systemID);
 
-    boolean addDevice(String systemID);
+    boolean add(String systemID);
 
 }

@@ -2,10 +2,12 @@ package com.app.mvc.entity;
 
 import com.app.mvc.dao.annotation.Column;
 import com.app.mvc.dao.annotation.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name = "typeRequest")
 public class TypeRequest {
 
+    @JsonIgnore
     @Column(name = "id", primaryKey = true, type = Integer.class)
     private int id;
 

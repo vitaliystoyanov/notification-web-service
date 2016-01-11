@@ -6,7 +6,7 @@ import com.app.mvc.dao.annotation.Table;
 @Table(name = "description")
 public class Description {
 
-    @Column(name = "idRequestsFK", foreignKey = true, type = Integer.class)
+    @Column(name = "ID", foreignKey = true, type = Integer.class)
     private int idRequest;
 
     @Column(name = "idTypeRequestFK", foreignKey = true, type = Integer.class)

@@ -1,24 +1,24 @@
 package com.app.mvc.controller.response;
 
-public class JsonResponse {
+public class Response {
 
-    private Status status;
+    private ResponseStatus status;
     private Object data;
 
-    public JsonResponse(Status status, Object data) {
+    public Response(ResponseStatus status, Object data) {
         this.status = status;
         this.data = data;
     }
 
-    public JsonResponse(Status status) {
+    public Response(ResponseStatus status) {
         this.status = status;
     }
 
-    public Status getStatus() {
+    public ResponseStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(ResponseStatus status) {
         this.status = status;
     }
 

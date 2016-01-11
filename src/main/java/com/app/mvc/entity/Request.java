@@ -2,6 +2,7 @@ package com.app.mvc.entity;
 
 import com.app.mvc.dao.annotation.Column;
 import com.app.mvc.dao.annotation.Table;
+import com.app.mvc.dao.annotation.UnixTimestamp;
 
 @Table(name = "request")
 public class Request {
@@ -9,8 +10,9 @@ public class Request {
     @Column(name = "id", primaryKey = true, type = Integer.class)
     private int id;
 
-    @Column(name = "createdAt", type = String.class)
-    private String createdAt;
+    @UnixTimestamp
+    @Column(name = "createdAt", type = Integer.class)
+    private int createdAt;
 
     @Column(name = "idDeviceFK", foreignKey = true, type = Integer.class)
     private int idDevice;
@@ -18,20 +20,19 @@ public class Request {
     public Request() {
     }
 
-    public Request(int idDevice, String createdAt) {
+    public Request(int idDevice) {
         this.idDevice = idDevice;
-        this.createdAt = createdAt;
     }
 
     public int getIdDevice() {
         return idDevice;
     }
 
-    public String getCreatedAt() {
+    public int getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(int createdAt) {
         this.createdAt = createdAt;
     }
 

@@ -2,6 +2,7 @@ package com.app.mvc.dao;
 
 import com.app.mvc.dao.annotation.Column;
 import com.app.mvc.dao.annotation.Table;
+import com.app.mvc.dao.annotation.UnixTimestamp;
 import com.app.mvc.dao.util.ResultSetParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +34,7 @@ public class MysqlDAO implements DAOInterface {
             } catch (ClassNotFoundException e) {
                 logger.error("Class of driver not found", e);
             }
-            logger.debug("DAO object created");
+            logger.info("DAO object created");
         }
         return dao;
     }
@@ -61,7 +62,11 @@ public class MysqlDAO implements DAOInterface {
 
             for (Field field : fields) {
                 if (field.isAnnotationPresent(Column.class) && !field.getAnnotation(Column.class).primaryKey()) {
-                    sql1.append("?,");
+                    if (field.isAnnotationPresent(UnixTimestamp.class)) {
+                        sql1.append("UNIX_TIMESTAMP(now()),");
+                    } else {
+                        sql1.append("?,");
+                    }
                 }
             }
 
@@ -77,12 +82,13 @@ public class MysqlDAO implements DAOInterface {
                 for (Field field : fields) {
                     if (field.isAnnotationPresent(Column.class) && !field.getAnnotation(Column.class).primaryKey()) {
                         try {
-                            PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), entity);
-                            preparedStatement.setObject(parameterIndex, descriptor.getReadMethod().invoke(instance));
-                            parameterIndex++;
+                            if (!field.isAnnotationPresent(UnixTimestamp.class)) {
+                                PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), entity);
+                                preparedStatement.setObject(parameterIndex, descriptor.getReadMethod().invoke(instance));
+                                parameterIndex++;
+                            }
                         } catch (Exception e) {
-                            logger.error("", e);
-                            e.printStackTrace();
+                            logger.error("Error in adding parameters", e);
                         }
                     }
                 }
@@ -92,13 +98,12 @@ public class MysqlDAO implements DAOInterface {
                 ResultSet keys = preparedStatement.getGeneratedKeys();
                 if (keys.next()) {
                     id = keys.getInt(1);
-                    //logger.trace("returned id after SQL query: " + id);
+                    logger.trace("ID returned after executing SQL query: " + id);
                 }
             }
             return id;
         } catch (SQLException e) {
-            logger.error("", e);
-            e.printStackTrace();
+            logger.error("Error in executing the SQL query", e);
         }
         return id;
     }
@@ -119,14 +124,12 @@ public class MysqlDAO implements DAOInterface {
 
                 ResultSet rs = statement.executeQuery(sql.toString());
                 instance = ResultSetParser.parseResultSetToInstance(rs, entity);
-                logger.trace("Executed SQL QUERY: " + statement.toString());
+                logger.info("Executed SQL QUERY: " + statement.toString());
             } catch (SQLException e) {
-                logger.error(e);
-                e.printStackTrace();
+                logger.error("Error in executing the SQL query", e);
             }
         } catch (SQLException e) {
-            logger.error(e);
-            e.printStackTrace();
+            logger.error("Error in executing the SQL query", e);
         }
         return instance;
     }
@@ -144,13 +147,11 @@ public class MysqlDAO implements DAOInterface {
                 resultSet.beforeFirst();
                 entityList = ResultSetParser.parseResultSetToArray(resultSet, entity);
             } catch (SQLException e) {
-                logger.error("", e);
-                e.printStackTrace();
+                logger.error("Error in executing the SQL query", e);
             }
             logger.info("Executed SQL QUERY: " + sql.toString());
         } catch (SQLException e) {
-            logger.error("", e);
-            e.printStackTrace();
+            logger.error("Error in executing the SQL query", e);
         }
         return entityList;
     }
@@ -177,13 +178,11 @@ public class MysqlDAO implements DAOInterface {
                 resultSet.beforeFirst();
                 entityList = ResultSetParser.parseResultSetToArray(resultSet, entity);
             } catch (SQLException e) {
-                logger.error("", e);
-                e.printStackTrace();
+                logger.error("Error in executing the SQL query", e);
             }
             logger.info("Executed SQL QUERY: " + sql.toString());
         } catch (SQLException e) {
-            logger.error("", e);
-            e.printStackTrace();
+            logger.error("Error in executing the SQL query", e);
         }
         return entityList;
     }
@@ -205,13 +204,13 @@ public class MysqlDAO implements DAOInterface {
                     if (field.isAnnotationPresent(Column.class) && !field.getAnnotation(Column.class).primaryKey()) {
                         sql.append(field.getAnnotation(Column.class).name());
                         sql.append("='");
-                        PropertyDescriptor pdesc = new PropertyDescriptor(field.getName(), entity);
-                        sql.append(pdesc.getReadMethod().invoke(instance));
+                        PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), entity);
+                        sql.append(descriptor.getReadMethod().invoke(instance));
                         sql.append("', ");
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Error in reading parameters", e);
             }
 
             int id = 0;
@@ -221,7 +220,7 @@ public class MysqlDAO implements DAOInterface {
                         PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), entity);
                         id = (int) descriptor.getReadMethod().invoke(instance);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.error("Error in adding parameters", e);
                     }
                     break;
                 }
@@ -237,8 +236,7 @@ public class MysqlDAO implements DAOInterface {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            logger.error("", e);
+            logger.error("Error in executing the SQL query", e);
         }
     }
 
@@ -265,19 +263,16 @@ public class MysqlDAO implements DAOInterface {
             }
 
             String table = instance.getClass().getAnnotation(Table.class).name();
-            StringBuilder sql = new StringBuilder("DELETE FROM ");
-            sql.append(table);
-            sql.append(" WHERE ID=?");
+            String sql = "DELETE FROM " + table + " WHERE ID=?";
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql.toString())) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setInt(1, id);
                 preparedStatement.executeUpdate();
                 logger.info("Executed SQL QUERY: " + preparedStatement);
             }
 
         } catch (SQLException e) {
-            logger.error(e);
-            e.printStackTrace();
+            logger.error("Error in executing the SQL query", e);
         }
     }
 }
