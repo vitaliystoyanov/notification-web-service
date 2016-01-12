@@ -1,6 +1,6 @@
 package com.app.mvc.service;
 
-import com.app.mvc.controller.response.ResponseRequest;
+import com.app.mvc.controller.response.ResponseData;
 import com.app.mvc.dao.MysqlDAO;
 import com.app.mvc.entity.*;
 import com.app.mvc.service.exception.NotFoundException;
@@ -24,18 +24,18 @@ public class EventService implements EventServiceInterface {
     }
 
     @Override
-    public ArrayList<ResponseRequest> getAll() {
+    public ArrayList<ResponseData> getAll() {
         logger.info("Get all events");
         ArrayList<Event> data = MysqlDAO.getDAO().retrieveAll(Event.class);
-        ArrayList<ResponseRequest> responseRequests = new ArrayList<>();
+        ArrayList<ResponseData> responseDatas = new ArrayList<>();
         for (Event event : data) {
-            responseRequests.add(createResponse(event));
+            responseDatas.add(createResponse(event));
         }
-        return responseRequests;
+        return responseDatas;
     }
 
     @Override
-    public ResponseRequest get(int id) throws NotFoundException {
+    public ResponseData get(int id) throws NotFoundException {
         logger.info("Get event with id=" + id);
         Event event = MysqlDAO.getDAO().retrieve(Event.class, id);
         if (event.getId() == 0) {
@@ -45,10 +45,10 @@ public class EventService implements EventServiceInterface {
         return createResponse(event);
     }
 
-    private ResponseRequest createResponse(Event event) {
+    private ResponseData createResponse(Event event) {
         Request request = MysqlDAO.getDAO().retrieve(Request.class, event.getIdRequest());
         Description description = MysqlDAO.getDAO().retrieve(Description.class, request.getId());
-        ResponseRequest response = new ResponseRequest();
+        ResponseData response = new ResponseData();
         response.setId(request.getId());
         response.setCreatedAt(String.valueOf(request.getCreatedAt()));
         response.setLocation((Location) MysqlDAO.getDAO().retrieve(Location.class, description.getIdLocation()));

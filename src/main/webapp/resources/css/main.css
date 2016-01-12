@@ -1,0 +1,13 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/*#header {
+    height: 50px;
+    background-color: #b22222;
+}*/
+
+.map-large {
+    min-height: 100%;
+}

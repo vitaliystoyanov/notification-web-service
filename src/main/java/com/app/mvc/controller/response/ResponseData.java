@@ -4,7 +4,7 @@ import com.app.mvc.entity.LevelDanger;
 import com.app.mvc.entity.Location;
 import com.app.mvc.entity.TypeRequest;
 
-public class ResponseRequest {
+public class ResponseData {
 
     private int id;
     private Location location;
@@ -54,7 +54,7 @@ public class ResponseRequest {
 
     @Override
     public String toString() {
-        return "ResponseRequest{" +
+        return "ResponseData{" +
                 "id=" + id +
                 ", createdAt='" + createdAt + '\'' +
                 ", location=" + location +

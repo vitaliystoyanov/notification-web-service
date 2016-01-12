@@ -1,8 +1,8 @@
 package com.app.mvc.controller;
 
 import com.app.mvc.controller.response.Response;
+import com.app.mvc.controller.response.ResponseData;
 import com.app.mvc.controller.response.ResponseFactory;
-import com.app.mvc.controller.response.ResponseRequest;
 import com.app.mvc.service.EventService;
 import com.app.mvc.service.exception.NotFoundException;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +27,7 @@ public class EventsController {
     public ResponseEntity<Response> retrieveAll(@RequestParam(PARAM_ID) String systemId) {
         logger.info("Retrieve all events. Accepted request with systemId = " + systemId);
 
-        ArrayList<ResponseRequest> data = eventService.getAll();
+        ArrayList<ResponseData> data = eventService.getAll();
         return ResponseFactory.ok(data);
     }
 
@@ -35,7 +35,7 @@ public class EventsController {
     public ResponseEntity<Response> retrieve(@RequestParam(PARAM_ID) String systemId, @PathVariable int id) {
         logger.info("Retrieve all events. Accepted request with systemId = " + systemId);
 
-        ResponseRequest data;
+        ResponseData data;
         try {
             data = eventService.get(id);
         } catch (NotFoundException e) {

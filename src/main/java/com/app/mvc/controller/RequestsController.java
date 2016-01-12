@@ -2,8 +2,8 @@ package com.app.mvc.controller;
 
 import com.app.mvc.controller.request.Body;
 import com.app.mvc.controller.response.Response;
+import com.app.mvc.controller.response.ResponseData;
 import com.app.mvc.controller.response.ResponseFactory;
-import com.app.mvc.controller.response.ResponseRequest;
 import com.app.mvc.entity.Device;
 import com.app.mvc.service.DeviceService;
 import com.app.mvc.service.EventService;
@@ -62,7 +62,7 @@ public class RequestsController {
     public ResponseEntity<Response> retrieveRequest(@PathVariable int id, @RequestParam(PARAM_ID) String systemId) {
         logger.info("URL: /requests/{id}, Accepted request with id: " + id);
 
-        ResponseRequest data = null;
+        ResponseData data = null;
         try {
             deviceService.verify(systemId);
             Device device = deviceService.getDeviceBySystemID(systemId);
@@ -93,7 +93,7 @@ public class RequestsController {
             return ResponseFactory.badRequest(ResponseFactory.INVALID_SYSTEM_ID);
         }
         int idDevice = deviceService.getDeviceBySystemID(systemId).getId();
-        ArrayList<ResponseRequest> data = requestService.retrieveAll(idDevice);
+        ArrayList<ResponseData> data = requestService.retrieveAll(idDevice);
 
         return ResponseFactory.ok(data);
     }

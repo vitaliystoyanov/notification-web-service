@@ -1,7 +1,7 @@
 package com.app.mvc.service;
 
 import com.app.mvc.controller.request.Body;
-import com.app.mvc.controller.response.ResponseRequest;
+import com.app.mvc.controller.response.ResponseData;
 import com.app.mvc.dao.MysqlDAO;
 import com.app.mvc.entity.*;
 import com.app.mvc.service.exception.NotFoundException;
@@ -37,17 +37,17 @@ public class RequestService implements RequestServiceInterface {
     }
 
     @Override
-    public ArrayList<ResponseRequest> retrieveAll(int idDevice) {
+    public ArrayList<ResponseData> retrieveAll(int idDevice) {
         ArrayList<Request> data = getAllFromDB(idDevice);
-        ArrayList<ResponseRequest> responseRequests = new ArrayList<>();
+        ArrayList<ResponseData> responseDatas = new ArrayList<>();
         for (Request request : data) {
-            responseRequests.add(createResponse(request));
+            responseDatas.add(createResponse(request));
         }
-        return responseRequests;
+        return responseDatas;
     }
 
     @Override
-    public ResponseRequest retrieve(int idRequest, int idDevice) throws NotFoundException {
+    public ResponseData retrieve(int idRequest, int idDevice) throws NotFoundException {
         ArrayList<Request> data = getAllFromDB(idDevice);
         for (Request request : data) {
             if (request.getId() == idRequest) {
@@ -78,9 +78,9 @@ public class RequestService implements RequestServiceInterface {
         return MysqlDAO.getDAO().retrieveAllWithWhere(Request.class, argWhere, valueWhere);
     }
 
-    private ResponseRequest createResponse(Request request) {
+    private ResponseData createResponse(Request request) {
         Description description = MysqlDAO.getDAO().retrieve(Description.class, request.getId());
-        ResponseRequest response = new ResponseRequest();
+        ResponseData response = new ResponseData();
         response.setId(request.getId());
         response.setCreatedAt(String.valueOf(request.getCreatedAt()));
         response.setLocation((Location) MysqlDAO.getDAO().retrieve(Location.class, description.getIdLocation()));
