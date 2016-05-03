@@ -44,7 +44,7 @@ public class MysqlDAO implements DAOInterface {
     private static Connection getConnection() throws SQLException {
         URI jdbUri = null;
         try {
-            jdbUri = new URI(System.getenv("JAWSDB_MARIA_URL"));
+            jdbUri = new URI(System.getenv("JAWSDB_URL"));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
