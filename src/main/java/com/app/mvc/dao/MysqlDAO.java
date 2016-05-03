@@ -167,7 +167,7 @@ public class MysqlDAO implements DAOInterface {
             for (int i = 0; i < argsWhere.length; i++) {
                 sql.append(argsWhere[i]);
                 sql.append("=");
-                sql.append(valueWhere[i]);
+                sql.append("\"" + valueWhere[i] + "\"");
                 if (i != argsWhere.length - 1) sql.append(" AND ");
             }
 

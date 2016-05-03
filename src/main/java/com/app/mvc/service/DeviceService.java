@@ -69,7 +69,7 @@ public class DeviceService implements DeviceServiceInterface {
     }
 
     private ArrayList<Device> getDevices(String systemID) {
-        return MysqlDAO.getDAO().retrieveAllWithWhere(Device.class, new String[]{"systemID"},
+        return MysqlDAO.getDAO().retrieveAllWithWhere(Device.class, new String[]{"SystemID"},
                 new String[]{systemID});
     }
 }
