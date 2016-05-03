@@ -47,7 +47,7 @@ public class Body {
 
     @Override
     public String toString() {
-        return "CommonRequest{" +
+        return "Body{" +
                 "location=" + location.toString() +
                 ", typeRequest=" + typeRequest.toString() +
                 ", levelDanger=" + levelDanger.toString() +

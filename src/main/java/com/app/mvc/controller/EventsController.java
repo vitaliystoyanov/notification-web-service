@@ -17,23 +17,18 @@ import java.util.ArrayList;
 @RequestMapping("/v1")
 public class EventsController {
 
-    private static Logger logger = LogManager.getLogger(EventsController.class);
-    private static final String PARAM_ID = "systemId";
-
     @Autowired
     private EventService eventService;
 
     @RequestMapping(value = "/events", method = RequestMethod.GET)
-    public ResponseEntity<Response> retrieveAll(@RequestParam(PARAM_ID) String systemId) {
-        logger.info("Retrieve all events. Accepted request with systemId = " + systemId);
+    public ResponseEntity<Response> retrieveAll() {
 
         ArrayList<ResponseData> data = eventService.getAll();
         return ResponseFactory.ok(data);
     }
 
     @RequestMapping(value = "/events/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Response> retrieve(@RequestParam(PARAM_ID) String systemId, @PathVariable int id) {
-        logger.info("Retrieve all events. Accepted request with systemId = " + systemId);
+    public ResponseEntity<Response> retrieve( @PathVariable int id) {
 
         ResponseData data;
         try {
