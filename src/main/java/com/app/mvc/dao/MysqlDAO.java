@@ -17,11 +17,7 @@ import java.util.ArrayList;
 public class MysqlDAO implements DAOInterface {
 
     private static final Logger logger = LogManager.getLogger(MysqlDAO.class);
-    private static final String USER = "kwg3yh92g0cd32qv";
-    private static final String PASSWORD = "stk3i3or1fwgnqz0";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://ivgz2rnl5rh7sphb.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/tiuega4c0alfyp4x";
-
     private static MysqlDAO dao = null;
 
     private MysqlDAO() throws ClassNotFoundException {
@@ -53,6 +49,7 @@ public class MysqlDAO implements DAOInterface {
         String password = jdbUri.getUserInfo().split(":")[1];
         String port = String.valueOf(jdbUri.getPort());
         String jdbUrl = "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath();
+        logger.info(jdbUrl);
 
         return DriverManager.getConnection(jdbUrl, username, password);
     }
