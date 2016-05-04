@@ -1,5 +1,5 @@
 # Notification web service
-Spring MVC 4 RESTFul Web Service with MySQL Database.
+Spring MVC 4 RESTFul Web Service with MySQL Database. Web service receives requests from users, processes and displays on the map.
 
 ## Dependencies
   - [Java 1.7](http://www.oracle.com/technetwork/java/javase/archive-139210.html)
@@ -33,14 +33,14 @@ Spring MVC 4 RESTFul Web Service with MySQL Database.
   - `Parameters: token`
   - `Resource: requests`
 
-Use this url:  
+Use following address:
 ```
   http://localhost/v1/requests?token=110c8a30c16070bf2813480d9492a1a1
 ```
   
 #### Create a request
   
-  Something about the request
+  If you want to create a query, you should specify **a body** of a request and a header **Content-Type**.
   
 ##### Example:
 
@@ -49,7 +49,7 @@ Use this url:
   - `Content-Type: application/json`
   - `Body: JSON`
   
-Use this url:
+Use following address:
 ```
   http://localhost/v1/requests?token=110c8a30c16070bf2813480d9492a1a1
 ``` 
@@ -70,72 +70,71 @@ and this body:
    }
 }
 ```
-**Note:** Value levelDanger and typeRequest should be added in a database before the request.
+**Note:** Values **levelDanger** and **typeRequest** should be added in a database before the request.
 
 #### Get all requests
 
-  Get all requests
+  Get all requests of a user. 
 
 ##### Example:
 
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use this url:
+Use following address:
 ```
   http://localhost/v1/requests?token=110c8a30c16070bf2813480d9492a1a1
 ```
 
 #### Get a request
-
-  Something about getting a request by id.
+  Getting one request by id.
 ##### Example:
 
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use this url:
+Use following address:
 ```
   http://localhost/v1/requests/1?token=110c8a30c16070bf2813480d9492a1a1
 ``` 
 
 #### Delete a request
 
-  Something about delete.
+  Delete one request by id.
   
 ##### Example:
 
   - `HTTP Method: DELETE`
   - `Parameters: token`
   
-Use this url:
+Use following address:
 ```
   http://localhost/v1/requests/1?token=110c8a30c16070bf2813480d9492a1a1
 ```
 
 #### Get all events
 
-  Get all events
+  Get all events this web service.
 
 ##### Example:
 
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use this url:
+Use following address:
 ```
-  http://localhost/v1/events?token=110c8a30c16070bf2813480d9492a1a1
+  http://localhost/v1/events
 ```
 
 #### Get a event
 
-  Something about getting a event by id.
+  Getting one event by id.
 ##### Example:
 
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use this url:
+Use following address:
 ```
-  http://localhost/v1/events/1?token=110c8a30c16070bf2813480d9492a1a1
+  http://localhost/v1/events/1
 ``` 
