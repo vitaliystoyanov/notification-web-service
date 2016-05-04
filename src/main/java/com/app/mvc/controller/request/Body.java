@@ -6,7 +6,6 @@ import com.app.mvc.entity.TypeRequest;
 
 public class Body {
 
-    private int id;
     private Location location;
     private TypeRequest typeRequest;
     private LevelDanger levelDanger;
@@ -14,8 +13,7 @@ public class Body {
     public Body() {
     }
 
-    public Body(int id, Location location, LevelDanger levelDanger, TypeRequest typeRequest) {
-        this.id = id;
+    public Body(Location location, LevelDanger levelDanger, TypeRequest typeRequest) {
         this.location = location;
         this.levelDanger = levelDanger;
         this.typeRequest = typeRequest;
