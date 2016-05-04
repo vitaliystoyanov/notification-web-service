@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1368434922">
+  <component name="DataSourceManagerImpl" format="xml" hash="4109332297">
     <data-source source="LOCAL" name="MySQL - main@localhost" uuid="4ccd74f1-b0e6-41ef-820c-c9cd1444b31f">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -14,7 +14,7 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="MySQL - tiuega4c0alfyp4x@ivgz2rnl5rh7sphb.chr7pe7iynqr.eu-west-1.rds.amazonaws.com" uuid="ed84e409-157c-4631-b6ec-06e629698e33">
+    <data-source source="LOCAL" name="JawsDB" uuid="25a00d92-2198-49e6-8ab4-b87c51aab551">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
