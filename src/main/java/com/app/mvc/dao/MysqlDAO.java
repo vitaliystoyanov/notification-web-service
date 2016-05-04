@@ -9,16 +9,15 @@ import org.apache.logging.log4j.Logger;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class MysqlDAO implements DAOInterface {
 
     private static final Logger logger = LogManager.getLogger(MysqlDAO.class);
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/main";
 
     private static MysqlDAO dao = null;
 
@@ -39,10 +38,26 @@ public class MysqlDAO implements DAOInterface {
         return dao;
     }
 
+    private static Connection getConnection() throws SQLException {
+        URI jdbUri = null;
+        try {
+            jdbUri = new URI(System.getenv("JAWSDB_URL"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        String username = jdbUri.getUserInfo().split(":")[0];
+        String password = jdbUri.getUserInfo().split(":")[1];
+        String port = String.valueOf(jdbUri.getPort());
+        String jdbUrl = "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath();
+
+        return DriverManager.getConnection(jdbUrl, username, password);
+    }
+
     @Override
     public <T> int create(T instance) {
         int id = 0;
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (Connection connection = getConnection()) {
 
             Class<?> entity = instance.getClass();
             Field[] fields = entity.getDeclaredFields();
@@ -113,7 +128,7 @@ public class MysqlDAO implements DAOInterface {
 
         T instance = null;
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (Connection connection = getConnection()) {
 
             StringBuilder sql = new StringBuilder("SELECT * FROM ");
             sql.append(entity.getAnnotation(Table.class).name());
@@ -138,7 +153,7 @@ public class MysqlDAO implements DAOInterface {
     public <T> ArrayList<T> retrieveAll(Class<?> entity) {
         ArrayList<T> entityList = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (Connection connection = getConnection()) {
             StringBuilder sql = new StringBuilder("SELECT * FROM ");
             sql.append(entity.getAnnotation(Table.class).name());
 
@@ -160,7 +175,7 @@ public class MysqlDAO implements DAOInterface {
     public <T> ArrayList<T> retrieveAllWithWhere(Class<?> entity, String[] argsWhere, String[] valueWhere) {
         ArrayList<T> entityList = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (Connection connection = getConnection()) {
             StringBuilder sql = new StringBuilder("SELECT * FROM ");
             sql.append(entity.getAnnotation(Table.class).name());
             sql.append(" WHERE ");
@@ -189,7 +204,7 @@ public class MysqlDAO implements DAOInterface {
 
     @Override
     public <T> void update(T instance) {
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (Connection connection = getConnection()) {
 
             Class<?> entity = instance.getClass();
             Field[] fields = entity.getDeclaredFields();
@@ -242,7 +257,7 @@ public class MysqlDAO implements DAOInterface {
 
     @Override
     public <T> void delete(T instance) {
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+        try (Connection connection = getConnection()) {
 
             Class<?> entity = instance.getClass();
             Field[] fields = entity.getDeclaredFields();
