@@ -50,6 +50,7 @@ public class MysqlDAO implements DAOInterface {
         String port = String.valueOf(jdbUri.getPort());
         String jdbUrl = "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath();
         logger.info(jdbUrl);
+        logger.info("Password: " + password + ", Username: " + username);
 
         return DriverManager.getConnection(jdbUrl, username, password);
     }
