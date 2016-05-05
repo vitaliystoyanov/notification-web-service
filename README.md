@@ -53,7 +53,7 @@ Use following address:
 ```
   http://localhost/v1/requests?token=110c8a30c16070bf2813480d9492a1a1
 ``` 
-and this body:
+and this body structure:
 ```json
   {  
    "location":{  
@@ -138,3 +138,76 @@ Use following address:
 ```
   http://localhost/v1/events/1
 ``` 
+
+## Rest API responses
+
+#### Good request
+  - HTTP response code: **200**
+```json
+{
+  "status": {
+    "code": 200,
+    "message": "Success"
+  },
+  "data": []
+}
+```
+#### Bad request
+  - HTTP response code: **400**
+```json
+{
+  "status":{
+    "code": 400,
+    "message": "Bad request"
+  },
+  "data":null
+}
+```
+### Request created
+  - HTTP response code: **201**
+```json
+{
+  "status": {
+    "code": 201,
+    "message": "Request created"
+  },
+  "data": null
+}
+```
+### Request not found
+  - HTTP response code: **400**
+```json
+{
+  "status": {
+    "code": 400,
+    "message": "Request not found"
+  },
+  "data": null
+}
+```
+### Event not found
+  - HTTP response code: **400**
+```json
+{
+  "status": {
+    "code": 400,
+    "message": "Event not found"
+  },
+  "data": null
+}
+```
+
+### Invalid token
+  - HTTP response code: **400**
+```json
+{
+  "status": {
+    "code": 400,
+    "message": "Invalid token"
+  },
+  "data": null
+}
+```
+
+
+
