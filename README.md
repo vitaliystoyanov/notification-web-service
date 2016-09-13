@@ -1,5 +1,8 @@
 # Notification web service
-Spring MVC 4 RESTFul Web Service with MySQL Database. Web service receives requests from users, processes and displays on the map.
+A web service receives requests for danger notifications (road accidents, robbery,
+etc.), handles and saves in database. After saving, requests displays on a map. You can see where nearby dangers.
+
+<img src="https://pp.vk.me/c637129/v637129592/da8b/WcvKBKEbtIo.jpg" width="900">
 
 ## Dependencies
   - [Java 1.7](http://www.oracle.com/technetwork/java/javase/archive-139210.html)
@@ -16,14 +19,14 @@ Spring MVC 4 RESTFul Web Service with MySQL Database. Web service receives reque
 ## Rest API
 
 #### Versions API
-  Before executing HTTP request you should specify **version of the API**. Current version of the API 1.
+  Before executing HTTP requests you should specify **version of the API**. Current version of the API 1.
 ##### Example:
   ```
   http://localhost/v1/events
   ```
   v1 - version of the API
-#### Token
-  A token is a unique value of length 32 and you should specify token in requests. 
+#### A token
+  A token is a unique value of length 32 and you should specify a token in requests. 
   Also, the token is generated in one instance.
   The token allows you to collect requests user's for managing them.
   
@@ -33,14 +36,14 @@ Spring MVC 4 RESTFul Web Service with MySQL Database. Web service receives reque
   - `Parameters: token`
   - `Resource: requests`
 
-Use following address:
+Use following an address:
 ```
   http://localhost/v1/requests?token=110c8a30c16070bf2813480d9492a1a1
 ```
   
 #### Create a request
   
-  If you want to create a query, you should specify **a body** of a request and a header **Content-Type**.
+  If you want to create a request, you should specify **a body** of a request and a header **Content-Type**.
   
 ##### Example:
 
@@ -70,7 +73,7 @@ and this body structure:
    }
 }
 ```
-**Note:** Values **levelDanger** and **typeRequest** should be added in a database before the request.
+**Note:** Values **levelDanger** and **typeRequest** should be added in a database before requests.
 
 #### Get all requests
 
@@ -121,12 +124,12 @@ Use following address:
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use following address:
+Use following an address:
 ```
   http://localhost/v1/events
 ```
 
-#### Get a event
+#### Get an event
 
   Getting one event by id.
 ##### Example:
@@ -134,14 +137,14 @@ Use following address:
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use following address:
+Use following an address:
 ```
   http://localhost/v1/events/1
 ``` 
 
 ## Rest API responses
 
-#### Good request
+#### Successful requests
   - HTTP response code: **200**
 ```json
 {
@@ -152,7 +155,7 @@ Use following address:
   "data": []
 }
 ```
-#### Bad request
+#### A bad request
   - HTTP response code: **400**
 ```json
 {
@@ -163,7 +166,7 @@ Use following address:
   "data":null
 }
 ```
-### Request created
+### A request created
   - HTTP response code: **201**
 ```json
 {
@@ -174,7 +177,7 @@ Use following address:
   "data": null
 }
 ```
-### Request not found
+### A request not found
   - HTTP response code: **400**
 ```json
 {
@@ -185,7 +188,7 @@ Use following address:
   "data": null
 }
 ```
-### Event not found
+### An event not found
   - HTTP response code: **400**
 ```json
 {
@@ -197,7 +200,7 @@ Use following address:
 }
 ```
 
-### Invalid token
+### Invalid a token
   - HTTP response code: **400**
 ```json
 {
