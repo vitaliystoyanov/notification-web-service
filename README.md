@@ -1,6 +1,6 @@
 # Notification web service
-A web service receives requests for danger notifications (road accidents, robbery,
-etc.), handles and saves in database. After saving, requests displays on a map. You can see where nearby dangers.
+A web service receives requests about dangerous situations (road accidents, robbery,
+etc.), handles and saves it in database. After saving, requests are displayed on Google Map.
 
 <img src="https://pp.vk.me/c637129/v637129592/da8b/WcvKBKEbtIo.jpg" width="900">
 
@@ -19,7 +19,7 @@ etc.), handles and saves in database. After saving, requests displays on a map. 
 ## Rest API
 
 #### Versions API
-  Before executing HTTP requests you should specify **version of the API**. Current version of the API 1.
+  Before executing HTTP requests you should specify **version of the API**. Current version of the API is 1.
 ##### Example:
   ```
   http://localhost/v1/events
@@ -36,7 +36,7 @@ etc.), handles and saves in database. After saving, requests displays on a map. 
   - `Parameters: token`
   - `Resource: requests`
 
-Use following an address:
+Use following URL:
 ```
   http://localhost/v1/requests?token=110c8a30c16070bf2813480d9492a1a1
 ```
@@ -52,7 +52,7 @@ Use following an address:
   - `Content-Type: application/json`
   - `Body: JSON`
   
-Use following address:
+Use following URL:
 ```
   http://localhost/v1/requests?token=110c8a30c16070bf2813480d9492a1a1
 ``` 
@@ -73,18 +73,18 @@ and this body structure:
    }
 }
 ```
-**Note:** Values **levelDanger** and **typeRequest** should be added in a database before requests.
+**Note:** Values **levelDanger** and **typeRequest** should be added in a database before processing requests.
 
 #### Get all requests
 
-  Get all requests of a user. 
+  Get all requests of a particular user. 
 
 ##### Example:
 
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use following address:
+Use following URL:
 ```
   http://localhost/v1/requests?token=110c8a30c16070bf2813480d9492a1a1
 ```
@@ -96,7 +96,7 @@ Use following address:
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use following address:
+Use following URL:
 ```
   http://localhost/v1/requests/1?token=110c8a30c16070bf2813480d9492a1a1
 ``` 
@@ -110,7 +110,7 @@ Use following address:
   - `HTTP Method: DELETE`
   - `Parameters: token`
   
-Use following address:
+Use following URL:
 ```
   http://localhost/v1/requests/1?token=110c8a30c16070bf2813480d9492a1a1
 ```
@@ -124,7 +124,7 @@ Use following address:
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use following an address:
+Use following URL:
 ```
   http://localhost/v1/events
 ```
@@ -137,7 +137,7 @@ Use following an address:
   - `HTTP Method: GET`
   - `Parameters: token`
   
-Use following an address:
+Use following URL:
 ```
   http://localhost/v1/events/1
 ``` 
@@ -166,7 +166,7 @@ Use following an address:
   "data":null
 }
 ```
-### A request created
+###  Request created
   - HTTP response code: **201**
 ```json
 {
@@ -177,7 +177,7 @@ Use following an address:
   "data": null
 }
 ```
-### A request not found
+### Request not found
   - HTTP response code: **400**
 ```json
 {
@@ -188,7 +188,7 @@ Use following an address:
   "data": null
 }
 ```
-### An event not found
+### Event not found
   - HTTP response code: **400**
 ```json
 {
@@ -200,7 +200,7 @@ Use following an address:
 }
 ```
 
-### Invalid a token
+### Invalid token
   - HTTP response code: **400**
 ```json
 {
